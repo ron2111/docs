@@ -1,13 +1,13 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Docs",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#297BCA",
     "light": "#07C983",
     "dark": "#0D9373",
     "anchors": {
@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "mailto:developers@ourgoodspace.com.com"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://www.goodspace.ai"
   },
   "tabs": [
     {
@@ -37,15 +37,11 @@
       "icon": "book-open-cover",
       "url": "https://mintlify.com/docs"
     },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
+ 
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "url": "https://www.goodspace.ai/blog"
     }
   ],
   "navigation": [
@@ -81,11 +77,19 @@
         "api-reference/endpoints/retrieve",
         "api-reference/endpoints/batch_eval"
       ]
+    },
+     {
+      "group": "AI Interview",
+      "pages": [
+        "api-reference/endpoints/start-interview",
+        "api-reference/endpoints/interview-analysis",
+        "api-reference/endpoints/batch-interviews"
+      ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "instagram": "https://www.instagram.com/ourgoodspace/",
+    "linkedin": "https://www.linkedin.com/company/goodspaceclub/"
   }
 }
