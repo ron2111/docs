@@ -1,12 +1,12 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "GoodSpace Evaluate Candidate API",
-    "description": "API to evaluate whether a candidate is a good fit for a job based on the provided job and candidate details.",
+    "title": "GoodSpace Candidate Evaluation API",
+    "description": "API endpoints to evaluate the suitability of candidates for specified job positions, including single and batch evaluations.",
+    "version": "1.0.0",
     "license": {
       "name": "MIT"
-    },
-    "version": "1.0.0"
+    }
   },
   "servers": [
     {
@@ -21,70 +21,136 @@
   "paths": {
     "/evaluate_candidate": {
       "post": {
-        "description": "Evaluates a candidate's fit for a job based on provided details.",
+        "description": "Evaluates a candidate's fit for a job based on provided details and returns an evaluation ID for further reference.",
+        "operationId": "evaluateCandidate",
         "requestBody": {
-          "description": "Job details and candidate details to evaluate.",
+          "description": "Candidate and job details for evaluation.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/EvaluationRequest"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
-            "description": "Evaluation response",
+            "description": "Successful evaluation with an evaluation ID.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EvaluationResponse"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - malformed or missing required parameters.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized - authentication failed or access denied.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too many requests - rate limit exceeded.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal server error - an unexpected error occurred.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "evaluationId": {
+                      "type": "string",
+                      "description": "Unique identifier for the evaluation."
+                    }
+                  }
                 }
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/retrieve_evaluation/{evaluationId}": {
+      "get": {
+        "description": "Retrieves the result of a previously submitted candidate evaluation using the provided evaluation ID.",
+        "operationId": "retrieveEvaluation",
+        "parameters": [
+          {
+            "name": "evaluationId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier for the evaluation.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evaluation result containing fit status and feedback.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "isGoodFit": {
+                      "type": "boolean",
+                      "description": "Indicates if the candidate is a good fit for the job."
+                    },
+                    "feedback": {
+                      "type": "string",
+                      "description": "Feedback on the candidate's suitability."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/batch_evaluate_candidate": {
+      "post": {
+        "description": "Evaluates multiple candidates and jobs in a single batch request.",
+        "operationId": "batchEvaluateCandidates",
+        "requestBody": {
+          "description": "Array of candidate and job details for batch evaluation.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EvaluationRequest"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Batch evaluation results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isGoodFit": {
+                        "type": "boolean",
+                        "description": "Indicates if the candidate is a good fit for the job."
+                      },
+                      "feedback": {
+                        "type": "string",
+                        "description": "Feedback on the candidate's suitability."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -121,44 +187,13 @@
                 "items": {
                   "type": "string"
                 },
-                "description": "List of skills possessed by the candidate."
+                "description": "Skills possessed by the candidate."
               },
               "candidateDesignation": {
                 "type": "string",
                 "description": "Current designation of the candidate."
               }
             }
-          }
-        }
-      },
-      "EvaluationResponse": {
-        "type": "object",
-        "properties": {
-          "isGoodFit": {
-            "type": "boolean",
-            "description": "Indicates whether the candidate is a good fit for the job."
-          },
-          "feedback": {
-            "type": "string",
-            "description": "Feedback based on the candidate evaluation."
-          }
-        }
-      },
-      "Error": {
-        "type": "object",
-        "required": [
-          "error",
-          "message"
-        ],
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32",
-            "description": "Error code"
-          },
-          "message": {
-            "type": "string",
-            "description": "Detailed error message"
           }
         }
       }
