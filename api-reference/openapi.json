@@ -152,6 +152,141 @@
           }
         ]
       }
+    },
+     "/register_organization": {
+      "post": {
+        "description": "Registers a new organization with the necessary details.",
+        "operationId": "registerOrganization",
+        "requestBody": {
+          "description": "Required organization details.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Organization successfully registered.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrganizationResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/interview/start": {
+      "post": {
+        "description": "Starts a new interview session using job details, candidate details, and organization details.",
+        "operationId": "startInterview",
+        "requestBody": {
+          "description": "Details required to start the interview.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InterviewRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interview successfully started.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/interview/status": {
+      "get": {
+        "description": "Retrieves the status of an ongoing or completed interview.",
+        "operationId": "getInterviewStatus",
+        "parameters": [
+          {
+            "name": "interviewId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the interview."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Current status of the interview.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewStatusResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },"/interview/analysis": {
+      "get": {
+        "description": "Provides a detailed analysis of the interview.",
+        "operationId": "getInterviewAnalysis",
+        "parameters": [
+          {
+            "name": "interviewId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The unique identifier of the interview."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed analysis of the interview.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InterviewAnalysisResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -195,6 +330,72 @@
               }
             }
           }
+        }
+      }
+    },
+    "OrganizationRequest": {
+        "type": "object",
+        "properties": {
+          "companyName": {"type": "string"},
+          "locationCity": {"type": "string"},
+          "state": {"type": "string"},
+          "country": {"type": "string"},
+          "website": {"type": "string"},
+          "hiringManagerName": {"type": "string"},
+          "emailId": {"type": "string"},
+          "mobileNumber": {"type": "string"}
+        },
+        "required": ["companyName", "locationCity", "state", "country", "website", "hiringManagerName", "emailId", "mobileNumber"]
+      },
+      "OrganizationResponse": {
+        "type": "object",
+        "properties": {
+          "orgId": {"type": "string"},
+          "message": {"type": "string"}
+        }
+      },
+      "InterviewRequest": {
+        "type": "object",
+        "properties": {
+          "jobTitle": {"type": "string"},
+          "jobDescription": {"type": "string"},
+          "skills": {"type": "array", "items": {"type": "string"}},
+          "experienceRequired": {"type": "string"},
+          "ctc": {"type": "string"},
+          "highestQualificationRequired": {"type": "string"},
+          "customQuestions": {"type": "array", "items": {"type": "string"}},
+          "candidateName": {"type": "string"},
+          "candidateSkills": {"type": "array", "items": {"type": "string"}},
+          "candidateExperience": {"type": "string"},
+          "candidateCtc": {"type": "string"},
+          "orgId": {"type": "string"},
+          "evaluationId": {"type": "string", "nullable": true}
+        },
+        "required": ["jobTitle", "jobDescription", "skills", "experienceRequired", "ctc", "highestQualificationRequired", "candidateName", "candidateSkills", "candidateExperience", "candidateCtc", "orgId"]
+      },
+      "InterviewResponse": {
+        "type": "object",
+        "properties": {
+          "interviewLink": {"type": "string"},
+          "interviewId": {"type": "string"}
+        }
+      },
+      "InterviewStatusResponse": {
+        "type": "object",
+        "properties": {
+          "status": {"type": "string"},
+          "message": {"type": "string"}
+        }
+      },
+      "InterviewAnalysisResponse": {
+        "type": "object",
+        "properties": {
+          "score": {"type": "integer"},
+          "swotAnalysis": {"type": "string"},
+          "customQuestionAnswers": {"type": "array", "items": {"type": "string"}},
+          "finalDecision": {"type": "string"},
+          "softSkillsAnalysis": {"type": "string"},
+          "technicalAnalysis": {"type": "string"}
         }
       }
     },

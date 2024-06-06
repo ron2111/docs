@@ -27,7 +27,7 @@
   },
   "tabs": [
     {
-      "name": "API Reference",
+      "name": "API Documentation",
       "url": "api-reference"
     }
   ],
@@ -70,6 +70,7 @@
         "api-reference/introduction"
       ]
     },
+    
     {
       "group": "Candiate Evaluation",
       "pages": [
@@ -82,10 +83,16 @@
       "group": "AI Interview",
       "pages": [
         "api-reference/endpoints/start-interview",
-        "api-reference/endpoints/interview-analysis",
-        "api-reference/endpoints/batch-interviews"
+        "api-reference/endpoints/interview-status",
+        "api-reference/endpoints/interview-analysis"
       ]
-    }
+    },
+    {
+      "group": "Add Organisation",
+      "pages": [
+        "api-reference/endpoints/register-org"
+      ]
+    },
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
