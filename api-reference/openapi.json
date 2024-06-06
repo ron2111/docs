@@ -155,42 +155,26 @@
     },
      "/register_organization": {
       "post": {
-        "description": "Evaluates multiple candidates and jobs in a single batch request.",
-        "operationId": "batchEvaluateCandidates",
+        "description": "Registers a new organization with the necessary details.",
+        "operationId": "registerOrganization",
         "requestBody": {
-          "description": "Array of candidate and job details for batch evaluation.",
+          "description": "Required organization details.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/EvaluationRequest"
-                }
+                "$ref": "#/components/schemas/OrganizationRequest"
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Batch evaluation results.",
+            "description": "Organization successfully registered.",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "isGoodFit": {
-                        "type": "boolean",
-                        "description": "Indicates if the candidate is a good fit for the job."
-                      },
-                      "feedback": {
-                        "type": "string",
-                        "description": "Feedback on the candidate's suitability."
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/OrganizationResponse"
                 }
               }
             }
