@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI Plant Store",
-    "description": "A sample API that uses a plant store as an example to demonstrate features in the OpenAPI specification",
+    "title": "GoodSpace Evaluate Candidate API",
+    "description": "API to evaluate whether a candidate is a good fit for a job based on the provided job and candidate details.",
     "license": {
       "name": "MIT"
     },
@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://sandbox.mintlify.com"
+      "url": "https://api.ourgoodspace.com"
     }
   ],
   "security": [
@@ -19,54 +19,15 @@
     }
   ],
   "paths": {
-    "/plants": {
-      "get": {
-        "description": "Returns all plants from the system that the user has access to",
-        "parameters": [
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of results to return",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Plant response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/evaluate_candidate": {
       "post": {
-        "description": "Creates a new plant in the store",
+        "description": "Evaluates a candidate's fit for a job based on provided details.",
         "requestBody": {
-          "description": "Plant to add to the store",
+          "description": "Job details and candidate details to evaluate.",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPlant"
+                "$ref": "#/components/schemas/EvaluationRequest"
               }
             }
           },
@@ -74,17 +35,17 @@
         },
         "responses": {
           "200": {
-            "description": "plant response",
+            "description": "Evaluation response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Plant"
+                  "$ref": "#/components/schemas/EvaluationResponse"
                 }
               }
             }
           },
           "400": {
-            "description": "unexpected error",
+            "description": "Bad request - malformed or missing required parameters.",
             "content": {
               "application/json": {
                 "schema": {
@@ -92,32 +53,29 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/plants/{id}": {
-      "delete": {
-        "description": "Deletes a single plant based on the ID supplied",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "ID of plant to delete",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Plant deleted",
-            "content": {}
           },
-          "400": {
-            "description": "unexpected error",
+          "401": {
+            "description": "Unauthorized - authentication failed or access denied.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - rate limit exceeded.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error - an unexpected error occurred.",
             "content": {
               "application/json": {
                 "schema": {
@@ -132,55 +90,75 @@
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
+      "EvaluationRequest": {
         "type": "object",
         "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
+          "jobDetails": {
             "type": "object",
             "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
+              "jobTitle": {
+                "type": "string",
+                "description": "Title of the job position."
+              },
+              "requiredSkills": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of skills required for the job."
+              },
+              "jobDescription": {
+                "type": "string",
+                "description": "Description of the job."
+              }
+            }
+          },
+          "candidateDetails": {
+            "type": "object",
+            "properties": {
+              "candidateSkills": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of skills possessed by the candidate."
+              },
+              "candidateDesignation": {
+                "type": "string",
+                "description": "Current designation of the candidate."
               }
             }
           }
-        ]
+        }
+      },
+      "EvaluationResponse": {
+        "type": "object",
+        "properties": {
+          "isGoodFit": {
+            "type": "boolean",
+            "description": "Indicates whether the candidate is a good fit for the job."
+          },
+          "feedback": {
+            "type": "string",
+            "description": "Feedback based on the candidate evaluation."
+          }
+        }
       },
       "Error": {
+        "type": "object",
         "required": [
           "error",
           "message"
         ],
-        "type": "object",
         "properties": {
           "error": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Error code"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "Detailed error message"
           }
         }
       }
@@ -188,7 +166,8 @@
     "securitySchemes": {
       "bearerAuth": {
         "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }
