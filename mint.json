@@ -75,7 +75,7 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Candiate Evaluation",
       "pages": [
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
