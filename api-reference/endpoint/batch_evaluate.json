@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Batch Evaluate Candidates",
+    "description": "Allows batch processing of multiple candidate evaluations in a single request.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/batch_evaluate_candidate": {
+      "post": {
+        "description": "Evaluates multiple candidates and jobs in a single batch request.",
+        "operationId": "batchEvaluateCandidates",
+        "requestBody": {
+          "description": "Array of candidate and job details for batch evaluation.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EvaluationRequest"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Batch evaluation results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isGoodFit": {
+                        "type": "boolean",
+                        "description": "Indicates if the candidate is a good fit for the job."
+                      },
+                      "feedback": {
+                        "type": "string",
+                        "description": "Feedback on the candidate's suitability."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EvaluationRequest": {
+        "type": "object",
+        "properties": {
+          "jobDetails": {
+            "type": "object",
+            "properties": {
+              "jobTitle": {
+                "type": "string",
+                "description": "Title of the job position."
+              },
+              "requiredSkills": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Skills required for the job."
+              },
+              "jobDescription": {
+                "type": "string",
+                "description": "Description of the job duties."
+              }
+            }
+          },
+          "candidateDetails": {
+            "type": "object",
+            "properties": {
+              "candidateSkills": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Skills possessed by the candidate."
+              },
+              "candidateDesignation": {
+                "type": "string",
+                "description": "Current role of the candidate."
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

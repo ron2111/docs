@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Retrieve Evaluation",
+    "description": "Fetches the result of a previously submitted evaluation using an evaluation ID.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/retrieve_evaluation/{evaluationId}": {
+      "get": {
+        "description": "Retrieves the result of the candidate evaluation.",
+        "operationId": "retrieveEvaluation",
+        "parameters": [
+          {
+            "name": "evaluationId",
+            "in": "path",
+            "required": true,
+            "description": "The unique identifier for the evaluation session.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evaluation result for the candidate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "isGoodFit": {
+                      "type": "boolean",
+                      "description": "Indicates if the candidate is a good fit for the job."
+                    },
+                    "feedback": {
+                      "type": "string",
+                      "description": "Feedback on the candidate's suitability."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
