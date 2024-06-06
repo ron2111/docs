@@ -77,9 +77,9 @@
     {
       "group": "Candiate Evaluation",
       "pages": [
-        "api-reference/endpoint/post",
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/batch_eval"
+        "api-reference/endpoints/post",
+        "api-reference/endpoints/get",
+        "api-reference/endpoints/batch_eval"
       ]
     }
   ],
