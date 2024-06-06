@@ -1,235 +1,99 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "GoodSpace Candidate Evaluation and Interview API",
-    "description": "API endpoints to evaluate the suitability of candidates for specified job positions, manage organization registrations, initiate interviews, and retrieve interview analyses.",
-    "version": "2.0.0",
-    "license": {
-      "name": "MIT"
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Docs",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#297BCA",
+    "light": "#297BCA",
+    "dark": "#171717",
+    "anchors": {
+      "from": "#297BCA",
+      "to": "#004B8D"
     }
   },
-  "servers": [
+  "topbarLinks": [
     {
-      "url": "https://api.ourgoodspace.com"
+      "name": "Support",
+      "url": "mailto:developers@ourgoodspace.com"
     }
   ],
-  "security": [
-    {
-      "bearerAuth": []
-    }
-  ],
-  "paths": {
-    "/register_organization": {
-      "post": {
-        "description": "Registers a new organization with the necessary details.",
-        "operationId": "registerOrganization",
-        "requestBody": {
-          "description": "Required organization details.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/OrganizationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Organization successfully registered.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OrganizationResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/interview/start": {
-      "post": {
-        "description": "Starts a new interview session using job details, candidate details, and organization details.",
-        "operationId": "startInterview",
-        "requestBody": {
-          "description": "Details required to start the interview.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/InterviewRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Interview successfully started.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InterviewResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/interview/status": {
-      "get": {
-        "description": "Retrieves the status of an ongoing or completed interview.",
-        "operationId": "getInterviewStatus",
-        "parameters": [
-          {
-            "name": "interviewId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the interview."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Current status of the interview.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InterviewStatusResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/interview/analysis": {
-      "get": {
-        "description": "Provides a detailed analysis of the interview.",
-        "operationId": "getInterviewAnalysis",
-        "parameters": [
-          {
-            "name": "interviewId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "description": "The unique identifier of the interview."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Detailed analysis of the interview.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InterviewAnalysisResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    }
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://www.goodspace.ai"
   },
-  "components": {
-    "schemas": {
-      "OrganizationRequest": {
-        "type": "object",
-        "properties": {
-          "companyName": {"type": "string"},
-          "locationCity": {"type": "string"},
-          "state": {"type": "string"},
-          "country": {"type": "string"},
-          "website": {"type": "string"},
-          "hiringManagerName": {"type": "string"},
-          "emailId": {"type": "string"},
-          "mobileNumber": {"type": "string"}
-        },
-        "required": ["companyName", "locationCity", "state", "country", "website", "hiringManagerName", "emailId", "mobileNumber"]
-      },
-      "OrganizationResponse": {
-        "type": "object",
-        "properties": {
-          "orgId": {"type": "string"},
-          "message": {"type": "string"}
-        }
-      },
-      "InterviewRequest": {
-        "type": "object",
-        "properties": {
-          "jobTitle": {"type": "string"},
-          "jobDescription": {"type": "string"},
-          "skills": {"type": "array", "items": {"type": "string"}},
-          "experienceRequired": {"type": "string"},
-          "ctc": {"type": "string"},
-          "highestQualificationRequired": {"type": "string"},
-          "customQuestions": {"type": "array", "items": {"type": "string"}},
-          "candidateName": {"type": "string"},
-          "candidateSkills": {"type": "array", "items": {"type": "string"}},
-          "candidateExperience": {"type": "string"},
-          "candidateCtc": {"type": "string"},
-          "orgId": {"type": "string"},
-          "evaluationId": {"type": "string", "nullable": true}
-        },
-        "required": ["jobTitle", "jobDescription", "skills", "experienceRequired", "ctc", "highestQualificationRequired", "candidateName", "candidateSkills", "candidateExperience", "candidateCtc", "orgId"]
-      },
-      "InterviewResponse": {
-        "type": "object",
-        "properties": {
-          "interviewLink": {"type": "string"},
-          "interviewId": {"type": "string"}
-        }
-      },
-      "InterviewStatusResponse": {
-        "type": "object",
-        "properties": {
-          "status": {"type": "string"},
-          "message": {"type": "string"}
-        }
-      },
-      "InterviewAnalysisResponse": {
-        "type": "object",
-        "properties": {
-          "score": {"type": "integer"},
-          "swotAnalysis": {"type": "string"},
-          "customQuestionAnswers": {"type": "array", "items": {"type": "string"}},
-          "finalDecision": {"type": "string"},
-          "softSkillsAnalysis": {"type": "string"},
-          "technicalAnalysis": {"type": "string"}
-        }
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
+  "tabs": [
+    {
+      "name": "API Documentation",
+      "url": "api-reference"
     }
+  ],
+  "anchors": [
+    {
+      "name": "Web Interface",
+      "icon": "book-open-cover",
+      "url": "https://www.goodspace.ai"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://www.goodspace.ai/blogs"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "development"
+      ]
+    },
+    {
+      "group": "Essentials",
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation",
+        "essentials/reusable-snippets"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction"
+      ]
+    },
+    {
+      "group": "Candidate Evaluation",
+      "pages": [
+        "api-reference/endpoints/eval",
+        "api-reference/endpoints/retrieve",
+        "api-reference/endpoints/batch_eval"
+      ]
+    },
+    {
+      "group": "AI Interview",
+      "pages": [
+        "api-reference/endpoints/start-interview",
+        "api-reference/endpoints/interview-status",
+        "api-reference/endpoints/interview-analysis"
+      ]
+    },
+    {
+      "group": "Add Organisation",
+      "pages": [
+        "api-reference/endpoints/register-org"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "instagram": "https://www.instagram.com/ourgoodspace/",
+    "linkedin": "https://www.linkedin.com/company/goodspaceclub/"
   }
 }
