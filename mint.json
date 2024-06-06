@@ -9,16 +9,16 @@
   "colors": {
     "primary": "#297BCA",
     "light": "#297BCA",
-    "dark": "#171717", 
+    "dark": "#171717",
     "anchors": {
-      "from": "#297BCA", 
-      "to": "#004B8D"   
+      "from": "#297BCA",
+      "to": "#004B8D"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:developers@ourgoodspace.com.com"
+      "url": "mailto:developers@ourgoodspace.com"
     }
   ],
   "topbarCtaButton": {
@@ -28,7 +28,7 @@
   "tabs": [
     {
       "name": "API Documentation",
-      "url": "api-reference"
+      "url": "/api-reference"
     }
   ],
   "anchors": [
@@ -37,7 +37,6 @@
       "icon": "book-open-cover",
       "url": "https://www.goodspace.ai"
     },
- 
     {
       "name": "Blog",
       "icon": "newspaper",
@@ -48,54 +47,52 @@
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "/introduction",
+        "/quickstart",
+        "/development"
       ]
     },
     {
       "group": "Essentials",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "/essentials/markdown",
+        "/essentials/code",
+        "/essentials/images",
+        "/essentials/settings",
+        "/essentials/navigation",
+        "/essentials/reusable-snippets"
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "/api-reference/introduction"
       ]
     },
-    
     {
-      "group": "Candiate Evaluation",
+      "group": "Candidate Evaluation",
       "pages": [
-        "api-reference/endpoints/eval",
-        "api-reference/endpoints/retrieve",
-        "api-reference/endpoints/batch_eval"
+        "/api-reference/endpoints/eval",
+        "/api-reference/endpoints/retrieve",
+        "/api-reference/endpoints/batch_eval"
       ]
     },
-     {
+    {
       "group": "AI Interview",
       "pages": [
-        "api-reference/endpoints/start-interview",
-        "api-reference/endpoints/interview-status",
-        "api-reference/endpoints/interview-analysis"
+        "/api-reference/endpoints/start-interview",
+        "/api-reference/endpoints/interview-status",
+        "/api-reference/endpoints/interview-analysis"
       ]
     },
     {
       "group": "Add Organisation",
       "pages": [
-        "api-reference/endpoints/register-org"
+        "/api-reference/endpoints/register-org"
       ]
-    },
+    }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
     "instagram": "https://www.instagram.com/ourgoodspace/",
     "linkedin": "https://www.linkedin.com/company/goodspaceclub/"
   }
