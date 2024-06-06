@@ -155,26 +155,42 @@
     },
      "/register_organization": {
       "post": {
-        "description": "Registers a new organization with the necessary details.",
-        "operationId": "registerOrganization",
+        "description": "Evaluates multiple candidates and jobs in a single batch request.",
+        "operationId": "batchEvaluateCandidates",
         "requestBody": {
-          "description": "Required organization details.",
+          "description": "Array of candidate and job details for batch evaluation.",
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/OrganizationRequest"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/EvaluationRequest"
+                }
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "Organization successfully registered.",
+            "description": "Batch evaluation results.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OrganizationResponse"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "isGoodFit": {
+                        "type": "boolean",
+                        "description": "Indicates if the candidate is a good fit for the job."
+                      },
+                      "feedback": {
+                        "type": "string",
+                        "description": "Feedback on the candidate's suitability."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -187,7 +203,7 @@
         ]
       }
     },
-    "/start-interview": {
+    "/interview/start": {
       "post": {
         "description": "Starts a new interview session using job details, candidate details, and organization details.",
         "operationId": "startInterview",
