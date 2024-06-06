@@ -1,33 +1,51 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Comprehensive API documentation for GoodSpace AI’s recruitment platform'
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
 
 ## Welcome
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+GoodSpace AI is revolutionizing the recruitment process with cutting-edge artificial intelligence technologies. Our platform offers a suite of APIs designed to optimize and automate various facets of hiring, from candidate evaluation to resume parsing and AI-driven interviews.
+
+## What we help with
 
 <Card
-  title="Plant Store Endpoints"
-  icon="leaf"
+  title="Candidate Evaluation"
+  icon="clipboard-question"
   href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
 >
-  View the OpenAPI specification file
+  View the Evaluation Response Specification
+</Card>
+
+<Card
+  title="AI Interview"
+  icon="microchip-ai"
+  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+>
+  View the Interview Analysis Report specification
+</Card>
+
+<Card
+  title="Resume Analysis"
+  icon="file"
+  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
+>
+ View the Resume Analysis Report specification
 </Card>
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All interactions with GoodSpace AI’s APIs require authenticated access. We use Bearer tokens for secure API calls, ensuring that only authorized users can access the services. Here’s how our security scheme is defined in the API documentation:
 
 ```json
 "security": [
   {
-    "bearerAuth": []
+    "bearerAuth": {
+      "type": "http",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
   }
 ]
 ```

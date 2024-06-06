@@ -8,11 +8,11 @@
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#297BCA",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "light": "#297BCA",
+    "dark": "#171717", 
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#297BCA", 
+      "to": "#004B8D"   
     }
   },
   "topbarLinks": [
@@ -33,15 +33,15 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
+      "name": "Web Interface",
       "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "url": "https://www.goodspace.ai"
     },
  
     {
       "name": "Blog",
       "icon": "newspaper",
-      "url": "https://www.goodspace.ai/blog"
+      "url": "https://www.goodspace.ai/blogs"
     }
   ],
   "navigation": [
