@@ -46,13 +46,6 @@
       ]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "essentials/settings",
-        "essentials/navigation"
-      ]
-    },
-    {
       "group": "API Documentation",
       "pages": [
         "api-reference/introduction"
