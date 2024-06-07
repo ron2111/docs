@@ -36,31 +36,20 @@
       "name": "Web Interface",
       "icon": "book-open-cover",
       "url": "https://www.goodspace.ai"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://www.goodspace.ai/blogs"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "introduction"
       ]
     },
     {
       "group": "Essentials",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
         "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "essentials/navigation"
       ]
     },
     {
@@ -70,7 +59,7 @@
       ]
     },
     {
-      "group": "Candidate Evaluation",
+      "group": "AI Shortlister",
       "pages": [
         "api-reference/endpoints/eval",
         "api-reference/endpoints/retrieve",
