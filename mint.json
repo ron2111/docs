@@ -63,6 +63,7 @@
       "group": "AI Interview",
       "pages": [
         "api-reference/endpoints/start-interview",
+        "api-reference/endpoints/start-interview_with_evaluation_id",
         "api-reference/endpoints/interview-status",
         "api-reference/endpoints/interview-analysis"
       ]
