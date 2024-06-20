@@ -10,12 +10,12 @@
   },
   "servers": [
     {
-      "url": "https://api.ourgoodspace.com"
+      "url": "https://api.ourgoodspace.com/api/d2"
     }
   ],
   "security": [
     {
-      "bearerAuth": []
+      "apiAuth": []
     }
   ],
   "paths": {
@@ -54,7 +54,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
@@ -98,61 +98,63 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
     },
     "/batch_evaluate_candidate": {
-      "post": {
-        "description": "Evaluates multiple candidates and jobs in a single batch request.",
-        "operationId": "batchEvaluateCandidates",
-        "requestBody": {
-          "description": "Array of candidate and job details for batch evaluation.",
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/EvaluationRequest"
-                }
-              }
+  "post": {
+    "description": "Evaluates multiple candidates and jobs in a single batch request. The batch can contain up to 200 candidate-job detail pairs per request.",
+    "operationId": "batchEvaluateCandidates",
+    "requestBody": {
+      "description": "Array of candidate and job details for batch evaluation, limited to 200 items per request.",
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "$ref": "#/components/schemas/EvaluationRequest"
             }
           }
-        },
-        "responses": {
-          "200": {
-            "description": "Batch evaluation results.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "isGoodFit": {
-                        "type": "boolean",
-                        "description": "Indicates if the candidate is a good fit for the job."
-                      },
-                      "feedback": {
-                        "type": "string",
-                        "description": "Feedback on the candidate's suitability."
-                      }
-                    }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Batch evaluation results.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "isGoodFit": {
+                    "type": "boolean",
+                    "description": "Indicates if the candidate is a good fit for the job."
+                  },
+                  "feedback": {
+                    "type": "string",
+                    "description": "Feedback on the candidate's suitability."
                   }
                 }
               }
             }
           }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
+        }
       }
     },
+    "security": [
+      {
+        "apiAuth": []
+      }
+    ]
+  }
+  }, 
+
      "/register_organization": {
       "post": {
         "description": "Registers a new organization with the necessary details.",
@@ -182,7 +184,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
@@ -216,7 +218,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
@@ -250,7 +252,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
@@ -283,7 +285,7 @@
         },
         "security": [
           {
-            "bearerAuth": []
+            "apiAuth": []
           }
         ]
       }
