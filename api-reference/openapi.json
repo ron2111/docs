@@ -399,11 +399,12 @@
       }
     },
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
+   "apiAuth": {
+    "type": "apiKey",
+    "in": "header",
+    "name": "Authorization"
+  }
+}
+
   }
 }

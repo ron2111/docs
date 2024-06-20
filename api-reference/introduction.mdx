@@ -35,11 +35,11 @@ All interactions with GoodSpace AI’s APIs require authenticated access. We use
 ```json
 "security": [
   {
-    "bearerAuth": {
-      "type": "http",
-      "scheme": "bearer",
-      "bearerFormat": "JWT"
-    }
+     "apiAuth": {
+      "type": "apiKey",
+      "in": "header",
+     "name": "Authorization"
+  }
   }
 ]
 ```
